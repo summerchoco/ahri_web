@@ -1,0 +1,499 @@
+::after, ::before { line-height: normal; }
+
+/* <<< Reset CSS >>> */
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 18px;
+    background-color: #bababa;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+
+}
+
+ol:after,
+ul:after {
+    content: "";
+    display: block;
+    line-height: 0;
+    clear: both;
+    overflow: hidden;
+    height: 0;
+}
+
+pre {
+    border-left: 10px solid #ccc;
+    max-width: 500px;
+}
+
+
+/*채팅 입력*/
+.chat-container {
+    position: fixed;
+    bottom: 0;
+    left: 42%;
+    transform: translateX(-50%);
+    width: 80%;
+    padding: 20px;
+    border-radius: 30px 30px 0 0;
+}
+
+/* 화면 크기가 1300px 이하일 때 */
+@media (max-width: 1500px) {
+    .chat-container {
+        max-width: 50%; /* 화면 크기에 맞게 최대 너비를 100%로 설정 */
+        padding: 15px;   /* 패딩 줄이기 */
+    }
+}
+
+.chat-box {
+    border-radius: 30px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat-box input {
+    width: 100%;
+    height: 60px;
+    padding: 10px 20px;
+
+    /* Glassmorphism */
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+
+    color: white;
+    font-size: 16px;
+    outline: none;
+
+    /* 부드러운 그림자 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+
+    /* placeholder 스타일도 맞춰줘야 자연스러워 */
+    transition: all 0.3s ease;
+}
+
+.chat-box input::placeholder{
+    color: rgba(255, 255, 255, 0.6);
+    font-size:24px;
+    font-weight: bold;   /* 굵게 */
+    opacity: 1;          /* 투명도 기본값 제거 (브라우저마다 진하기 다르게 보임 방지) */
+}
+.chat-box input:focus {
+    border-color: #0078d4;
+}
+.chat-button {
+    width: 60px; /* 버튼의 너비 */
+    height: 60px; /* 버튼의 높이 */
+    border-radius: 50%; /* 동그랗게 만드는 부분 */
+    background-color: #3f6b82; /* 버튼 배경색 */
+    color: #fff; /* 버튼의 글자 색 */
+    display: flex;
+    justify-content: center; /* 내용(아이콘 등)을 가운데로 정렬 */
+    align-items: center; /* 내용(아이콘 등)을 가운데로 정렬 */
+    border: none; /* 테두리 제거 */
+    cursor: pointer; /* 마우스 포인터 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 약간의 그림자 */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* 호버 시 효과 */
+}
+
+.chat-button:hover {
+    background-color: #2d4f75; /* 호버 시 색상 변화 */
+    transform: scale(1.1); /* 호버 시 살짝 커지는 효과 */
+}
+
+.chat-button:active {
+    transform: scale(0.95); /* 클릭 시 약간 작아지는 효과 */
+}
+/*채팅 입력*/
+
+/*슬라이드*/
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/*대문 종료*/
+/* <<< Headings >>> */
+h1 { font-size: 40px; }
+h2 { font-size: 32px; }
+h3 { font-size: 28px; margin-top: 25px;}
+h4 { font-size: 24px; }
+h5 { font-size: 20px; }
+h6 { font-size: 16px; }
+p, .font-weight-light { color:gray; font-weight: 300; }
+
+/* <<< WP-Image Hack >>> */
+img {
+    border: 0;
+    height: auto;
+    max-width: 100%;
+}
+
+/* <<< anchor >>> */
+a {
+    color: #dbeeff;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+a:hover {
+    color: green;
+    text-decoration: none;
+}
+
+a:focus {
+    outline: 0;
+    color: green;
+}
+
+/* <<< btn override >>> */
+.btn {
+    white-space: normal;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 12px 35px;
+    border-radius: 0;
+}
+
+/* <<< btn-primary >>> */
+.btn-primary {
+    color: #fff;
+    background-color: #356ba2;
+    border-color: transparent;
+}
+
+.btn-primary.active, .btn-primary:active, .btn-primary.focus, .btn-primary:focus, .btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .btn-primary:hover {
+    color: #fff;
+    background-color: #99ccff;
+    border-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active {
+    background-color: #99ccff;
+    border-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.form-control {
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+    -webkit-background-clip: padding-box;
+    height: 50px;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid #fff;
+    padding-bottom:10px;
+    font-size: 18px;
+    color: #fff;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.form-control::-webkit-input-placeholder { color: white; }
+.form-control:-moz-placeholder { color: white; }
+.form-control::-moz-placeholder { color: white; }
+.form-control:-ms-input-placeholder { color: white; }
+
+.form-control:focus {
+    border-bottom: 1px solid #356ba2;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-color: transparent;
+    color: #fff;
+}
+
+textarea.form-control {
+    min-height: 150px;
+    padding: 10px 10px 10px 10px;
+}
+
+/* <<< Global >>> */
+.container { max-width: 1320px; }
+.container-2 { max-width: 1250px; }
+
+/* <<< outer >>> */
+#outer {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 991px) {
+    #outer { display: block; }
+}
+
+/* <<< content-box >>> */
+#content-box {
+    overflow: hidden;
+    width: calc(82% + 1px);
+}
+
+@media (max-width: 991px) {
+    #content-box { width: 100%; }
+}
+
+.section {
+    height: 100vh;
+    min-height: 700px;
+    display: flex;
+    align-items: center;
+}
+
+
+/* <<< Slider >>> */
+.gallery-slider figure {
+    position: relative;
+    float: left;
+    overflow: hidden;
+    margin: 0;
+    max-width: 200px;
+    height: auto;
+    background: #3085a3;
+    text-align: center;
+    cursor: pointer;
+}
+
+.gallery-slider figure img {
+    position: relative;
+    display: block;
+    min-height: 100%;
+    max-width: 100%;
+    opacity: 0.8;
+}
+
+.gallery-slider figure figcaption {
+    padding: 1em;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1.25em;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.gallery-slider figure figcaption::before,
+.gallery-slider figure figcaption::after {
+    pointer-events: none;
+}
+
+.gallery-slider figure figcaption,
+.gallery-slider figure figcaption > a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Anchor will cover the whole item by default */
+/* For some effects it will show as a button */
+.gallery-slider figure figcaption > a {
+    z-index: 1000;
+    text-indent: 200%;
+    white-space: nowrap;
+    font-size: 0;
+    opacity: 0;
+}
+
+.gallery-slider figure h2 {
+    word-spacing: -0.15em;
+    font-weight: 300;
+    font-size: 28px;
+}
+
+.gallery-slider figure h2 span {
+    font-weight: 800;
+}
+
+.gallery-slider figure h2,
+.gallery-slider figure p {
+    margin: 0;
+}
+
+.gallery-slider figure p {
+    letter-spacing: 1px;
+    font-size: 68.5%;
+}
+
+.gallery-section .title {
+    padding-right: 13px;
+    margin-bottom: 80px;
+}
+
+.gallery-slider {
+    margin: 40px auto;
+    max-width: 960px;
+}
+
+.gallery-nav {
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+
+.gallery-slider .slick-slide {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gallery-card {
+    backdrop-filter: blur(20px); /* Glassmorphism 효과 */
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 2rem;
+    margin: 2rem auto;
+    width: 300px;
+    height: 640px;
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    justify-content: space-between; /* 텍스트 위, 아이콘 아래 */
+    text-align: center;
+    color: white;
+    position: relative; /* 필요하면 아이콘 위치 더 세밀 조정 가능 */
+}
+
+
+.gallery-card img {
+    position: relative;
+    width: 100%;
+
+    border-radius: 10px;
+}
+
+
+.gallery-nav {
+    text-align: center;
+    margin-top: 20px;
+}
+.gallery-dot {
+    width: 40px;
+    height: 40px;
+    margin: 0 8px;
+    border-radius: 50%;
+    border: none;
+    background-color: #ccc;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.gallery-dot:hover {
+    background-color: #999;
+}
+
+
+.gallery-section .container { max-width: 1600px; }
+
+
+@media (max-width: 767px) {
+    .gallery-section .title { margin-bottom: 40px; }
+}
+
+.gallery-section .title h2 { color: #ffffff;border-bottom: 1px solid #fff; padding-bottom:10px;}
+.gallery-section .slick-list { margin-bottom: 40px; }
+
+.gallery-section .item {
+    text-align: center;
+    margin: 5px;
+}
+
+.gallery-section .slick-dots {
+    position: unset;
+    bottom: 0;
+}
+
+.gallery-section .slick-dots li {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+}
+
+.gallery-section .slick-dots li.slick-active,
+.gallery-section .slick-dots li:hover {
+}
+
+.gallery-section .slick-dots li button { display: none; }
+.gallery-slider-wrapper{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+.parallax-window {
+    position: relative;
+    overflow: hidden;
+}
+
+
+.parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    will-change: transform;
+
+}
+
+.react-fullpage__contents {
+    display: block !important; /* flex 대신 block으로 강제 전환 */
+}
+
+.react-fullpage__slide {
+    height: 100vh;
+    flex-shrink: 0; /* flex 남아있을 경우 대응 */
+}
+
+/* 로딩 모달 추가 */
+#loadingSpinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+#loadingSpinner.active {
+    opacity: 1;
+    visibility: visible;
+}

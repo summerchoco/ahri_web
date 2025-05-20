@@ -1,0 +1,97 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+// require('dotenv').config({ path: __dirname + '/.env' });
+require('dotenv').config({ path: __dirname + '/../.env' });
+var {app} = require('../app');
+var debug = require('debug')('ahri-web-backend:server');
+var http = require('http');
+
+const config = require('../config'); // 여기서 포트 설정을 가져옴
+
+const sessionMiddleware = require('../middlewares/expressSession')
+const roomController = require('../controllers/roomController')
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(config.server.port || '4000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ * Express 애플리케이션을 기반으로 HTTP 서버를 생성
+ */
+var server = http.createServer(app);
+
+// =============================================================================
+// 서버가 실행될 때 섹터를 열어놓는다.
+// =============================================================================
+roomController.createSector();
+
+
+/**
+ * Listen on provided port, on all network interfaces.
+ * 서버를 지정된 포트에서 실행
+ */
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ *  포트 값을 정규화하여 숫자로 변환
+ *  @param {string} val - 환경 변수에서 가져온 포트 값
+ *  @returns {number | string | boolean} 정규화된 포트 값
+ */
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+  return isNaN(port) ? false : port;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ * 서버 실행 중 발생하는 에러를 처리
+ * @param {object} error - 발생한 에러 객체
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+      ? 'Pipe ' + port
+      : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges'); //권한 부족
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use'); // 포트 사용 중 오류
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ * 서버가 정상적으로 실행되었을 때 로그 출력
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+      ? 'pipe ' + addr
+      : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+
+}

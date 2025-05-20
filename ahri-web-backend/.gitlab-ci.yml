@@ -1,0 +1,27 @@
+variables:
+  REPO: harbor.bns.co.kr
+  REPO_ID: admin
+  REPO_PW: "zxasqw12!@"
+  REPO_PROJECT: k8s-test
+  IMG_REPO: ahri-server
+  DLY_NAME: ahri-server-deployment
+  IMG_TG: v1.03
+  BACK_IMG_REPO: ahri-backend
+  BACK_DLY_NAME: ahri-backend-deployment
+  BACK_IMG_TG: v1.04
+
+
+  DOCKER_HOST: tcp://docker:2376
+  DOCKER_TLS_CERTDIR: "/certs"
+  DOCKER_TLS_VERIFY: 1
+  DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
+  DOCKER_CONTENT_TRUST_SERVER: "https://harbor.bns.co.kr"
+
+
+include:
+  - local: '.gitlab/ci-backend.yml'
+  - local: '.gitlab/ci-ahri.yml'
+
+stages:
+  - cicd
+  - restart

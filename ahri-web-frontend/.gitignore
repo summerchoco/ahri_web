@@ -1,0 +1,38 @@
+it# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# .env
+.env
+
+# misc
+.DS_Store
+#.env.local
+#.env.development.local
+#.env.test.local
+#.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/.idea/.gitignore
+/.idea/ahri-web-frontend.iml
+/.idea/jsLibraryMappings.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/vcs.xml
+/ahri-web-frontend.iml
+/.idea/shelf/Uncommitted_changes_before_Update_at_2025-04-18_오전_11_11_[Changes]/shelved.patch
+/.idea/shelf/Uncommitted_changes_before_Update_at_2025-04-18__11_11__Changes_.xml
+/.idea/workspace.xml
+/.idea/shelf/Uncommitted_changes_before_Update_at_2025-04-18_오전_11_11_[Changes]/shelved.patch

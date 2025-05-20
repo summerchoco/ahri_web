@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ahri Assistant</title>
+
+    <!-- JS & CSS -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <link rel="stylesheet" href="../css/chat/chat.css" />
+</head>
+
+<body>
+<!-- 사용자 정보 -->
+<input type="hidden" id="clientId" class="clientId" value="" />
+<input type="hidden" id="userId" class="userId" value="나" />
+
+<div class="header">
+    <h1>Ahri AI</h1>
+</div>
+
+<div class="container">
+    <!-- 사이드바 -->
+<!--    <div class="sidebar">-->
+<!--        <div class="chat-list-container">-->
+<!--            <div class="chat-list"></div>-->
+<!--            <div id="add-chat-btn" class="add-chat-btn" onclick="openModal('#create-chat-modal'); getUserList();"> + </div>-->
+<!--        </div>-->
+
+<!--        <div class="chatroom-participants">-->
+<!--            <h2>참여자 목록</h2>-->
+<!--            <hr class="title-separator" />-->
+<!--            <ul class="participant-list"></ul>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <!-- 채팅 영역 -->
+    <div class="chat-section" id="chatSection">
+        <div class="chat-header">채팅방</div>
+        <div class="chat-messages"></div>
+
+        <div class="chat-input-container">
+            <div class="chat-input-row">
+                <input type="text" id="right-chat-input" class="chat-input" placeholder="메시지를 입력하세요..." autocomplete="off" />
+                <button class="send-button" onclick="fnSendMessage()">보내기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 리사이저 -->
+    <div class="resizer" id="resizer"></div>
+</div>
+
+<!-- 대화방 생성 모달 -->
+<div id="create-chat-modal" class="modal">
+    <div class="modal-content create-chat-modal">
+        <span class="close" onclick="closeModal('#create-chat-modal')">❌</span>
+        <h2>새로운 대화방 만들기</h2>
+        <hr/>
+
+        <div id="chat-title-container">
+            <input type="text" id="roomNm" placeholder="방 이름을 입력해주세요" />
+        </div>
+
+        <div id="search-container">
+            <input type="text" id="search-input" placeholder="사용자를 추가해주세요" onkeyup="searchUser()" autocomplete="off" />
+        </div>
+
+        <div id="search-results">
+            <ul id="search-user-list"></ul>
+        </div>
+
+        <h4>추가된 멤버</h4>
+        <ul id="added-members"></ul>
+
+        <button id="create-chatroom-btn" onclick="createChatRoom()">대화방 만들기</button>
+    </div>
+</div>
+
+<!-- (예비) 대화방 제목 입력 모달 -->
+<div id="create-room-modal" class="modal">
+    <div id="create-room-modal-content" class="modal-content">
+        <span class="close" onclick="closeModal('#create-room-modal')">❌</span>
+        <h2 id="create-room-modal-heading">새로운 대화방 만들기</h2>
+
+        <div id="chat-title-container">
+            <input type="text" placeholder="채팅 제목 입력..." />
+        </div>
+    </div>
+</div>
+
+<!-- 이미지 확대 보기 모달 -->
+<div id="modal3" class="modal">
+    <div id="modal3-content" class="modal-content">
+        <span class="close" onclick="closeModal('#modal3')">❌</span>
+        <img src="" id="modal-img" class="modal-img" />
+    </div>
+</div>
+
+<!-- 로딩 스피너 -->
+<div id="loadingSpinner">
+    <img src="/images/loading.svg" alt="로딩 중..." />
+</div>
+
+<!-- Script -->
+<script src="../js/common/fetchUtil.js"></script>
+<script src="../js/chat/chat.js"></script>
+<script src="../js/common/loadingUtil.js"></script>
+</body>
+</html>

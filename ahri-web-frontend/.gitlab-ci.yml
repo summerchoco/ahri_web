@@ -1,0 +1,74 @@
+# This file is a template, and might need editing before it works on your project.
+# This is a sample GitLab CI/CD configuration file that should run without any modifications.
+# It demonstrates a basic 3 stage CI/CD pipeline. Instead of real tests or scripts,
+# it uses echo commands to simulate the pipeline execution.
+#
+# A pipeline is composed of independent jobs that run scripts, grouped into stages.
+# Stages run in sequential order, but jobs within stages run in parallel.
+#
+# For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
+#
+# You can copy and paste this template into a new `.gitlab-ci.yml` file.
+# You should not add this template to an existing `.gitlab-ci.yml` file by using the `include:` keyword.
+#
+# To contribute improvements to CI/CD templates, please follow the Development guide at:
+# https://docs.gitlab.com/ee/development/cicd/templates.html
+# This specific template is located at:
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
+variables:
+  REPO: harbor.bns.co.kr
+  REPO_ID: admin
+  REPO_PW: "zxasqw12!@"
+  REPO_PROJECT: k8s-test
+  IMG_TG: v1.61
+  DOCKER_HOST: tcp://docker:2376
+  DOCKER_TLS_CERTDIR: "/certs"
+  DOCKER_TLS_VERIFY: 1
+  DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
+  DOCKER_CONTENT_TRUST_SERVER: "https://harbor.bns.co.kr"
+
+
+stages:          # List of stages for jobs, and their order of execution
+  - cicd
+  - restart
+
+container-restart:
+  stage: restart
+  when: manual
+  only:
+    - main
+  image:
+    name: bitnami/kubectl:latest
+    entrypoint: ['']
+  script:
+    - kubectl rollout restart deployment ahri-frontend-deployment --namespace k8s-test
+
+docker-build:
+  when: manual
+  stage: cicd
+  image: docker:24.0.5
+  only:
+    - main
+  services:
+    - docker:24.0.5-dind
+  before_script:
+    - until docker info; do sleep 1; done
+    - docker login -u "$REPO_ID" -p "$REPO_PW" $REPO
+  script:
+    - docker build -t harbor.bns.co.kr/$REPO_PROJECT/ahri-frontend:$IMG_TG .
+    - docker push harbor.bns.co.kr/$REPO_PROJECT/ahri-frontend:$IMG_TG
+service-deploy:
+  stage: cicd
+  needs:
+    - docker-build
+  only:
+    - main
+  image:
+    name: bitnami/kubectl:latest
+    entrypoint: ['']
+  script:
+    - kubectl get deployments.apps
+    - kubectl set image deployment/ahri-frontend-deployment k8s-test-ahri-frontend-container=harbor.bns.co.kr/$REPO_PROJECT/ahri-frontend:$IMG_TG --namespace k8s-test
+
+
+
