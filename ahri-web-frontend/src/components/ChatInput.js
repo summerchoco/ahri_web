@@ -1,5 +1,6 @@
 import React from 'react';
 import { useChat } from '../services/ChatService'; // useChat 훅을 chatService에서 import
+import AhriChatBox from '../components/AhriChatBox'; // ✅ default import
 
 const ChatInput = () => {
     const {
@@ -13,7 +14,7 @@ const ChatInput = () => {
         handleInputChange,
         handleFocus,
         handleSendButtonClick,
-        AhriChatBox,
+        // AhriChatBox,
         resetAhriChat
     } = useChat(); // 커스텀 훅 호출
 
